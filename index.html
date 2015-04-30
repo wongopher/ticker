@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ticker.js</title>
+	<script src="main.js" type="text/javascript"></script>
+	<script>
+		window.onload = function () {
+			var ticker = new Ticker({
+				freeze: 1500,
+				underline: true,
+				highlight: true,
+				elementID: 'ticker',
+				words: [
+					'AngularJS',
+					'Ruby on Rails',
+					'ReactJS',
+					'jQuery',
+					'PHP',
+					'Python',
+					'Java',
+					'Javascript',
+					'CodeIgniter',
+					'Backbone',
+					'SASS',
+					'Object-Oriented Programming',
+					'Photoshop',
+					'Illustrator'
+				]
+			});
+			ticker.start();
+		}
+	</script>
+</head>
+<body>
+	I'm super good at <span id="ticker"></span>.
+</body>
+</html>
