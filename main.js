@@ -1,13 +1,18 @@
 function Ticker(settings) {
-	this.freeze = settings.freeze;
-	this.speed = settings.speed;
+	this.freeze = settings.freeze || 1500;
+	this.speed = settings.speed || Math.ceil(Math.random() * 50) + 50;
 	this.words = settings.words;
 	this.settings = settings;
-	this.elem = document.getElementById(settings.elementID);
+	this.elem = document.getElementById(settings.elementID) || document.getElementById('ticker');
 
-	if (settings.underline == true) this.elem.style.borderBottom = '2px solid #000';
+	if (settings.underline == true) this.elem.style.borderBottom = '2px solid #777';
 
-	return this;
+	if (this.words.length == 0) {
+		console.error('You did not provide any words as parameters!');
+		return;
+	} else {
+		return this;
+	}
 }
 
 Ticker.prototype = {
@@ -15,7 +20,7 @@ Ticker.prototype = {
 	// prints individual characters
 	scribe: function (currentWord, i, speed) {
 		var _self = this;
-		var typeSpeed = speed || Math.ceil(Math.random() * 50) + 50;
+		var typeSpeed = speed;
 
 		if (currentWord.length > i) { // print chars for length of word
 			_self.elem.innerHTML += currentWord[i];
@@ -30,7 +35,7 @@ Ticker.prototype = {
 			if (_self.settings.highlight == true) {
 				_self.addedDelay = 1000;
 				setTimeout(function(){
-					_self.elem.style.backgroundColor = '#000';
+					_self.elem.style.backgroundColor = '#777';
 					_self.elem.style.color = '#fff';
 				}, _self.freeze);
 			}
