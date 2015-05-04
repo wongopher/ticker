@@ -1,18 +1,16 @@
 function Ticker(settings) {
-	this.freeze = settings.freeze || 1500;
-	this.speed = settings.speed || Math.ceil(Math.random() * 50) + 50;
-	this.words = settings.words;
-	this.settings = settings;
-	this.elem = document.getElementById(settings.elementID) || document.getElementById('ticker');
+	// establish default settings
+	this.freeze 	= settings.freeze || 1500;
+	this.speed 		= settings.speed || Math.ceil(Math.random() * 50) + 50;
+	this.words 		= settings.words || ['You need to pass a word array into your Ticker instance'];
+	this.settings 	= settings;
+	this.elem 		= document.getElementById(settings.elementID) || document.getElementById('ticker');
+	this.prevWord 	= '';
 
+	// set up styling 
 	if (settings.underline == true) this.elem.style.borderBottom = '2px solid #777';
 
-	if (this.words.length == 0) {
-		console.error('You did not provide any words as parameters!');
-		return;
-	} else {
-		return this;
-	}
+	return this;
 }
 
 Ticker.prototype = {
@@ -56,6 +54,10 @@ Ticker.prototype = {
 	start: function () {
 		var randNum = Math.floor(Math.random() * this.words.length);
 		var currentWord = this.words[randNum];
+
+		//check if new word is same as previous word
+		if (currentWord == this.prevWord) currentWord = this.words[randNum + 1] || this.words[randNum - 1];
+		this.prevWord = currentWord;
 		var i = 0;
 		this.scribe(currentWord, i, this.speed);
 	}
