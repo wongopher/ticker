@@ -1,5 +1,5 @@
 # ticker
-A simple Javascript library that emulates a digital signage ticker from an array of strings.
+A simple Javascript library that emulates a digital signage ticker from an array of strings. <a href="http://wongopher.github.io/ticker">DEMO</a>
 
 # Options
 Param | Option
