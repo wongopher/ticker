@@ -1,6 +1,8 @@
 // constructor function
-(function(window){
-  window.Ticker = function(settings) {
+(function(win){
+  'use strict';
+
+  function Ticker(settings) {
     // establish default settings
     this.freeze     = settings.freeze || 1500;
     this.speed      = settings.speed || Math.ceil(Math.random() * 50) + 50;
@@ -10,7 +12,7 @@
     this.prevWord   = '';
 
     // set up styling -- need to move this out of the library code!!!
-    if (settings.underline == true) this.elem.style.borderBottom = '2px solid #777';
+    if (settings.underline === true) this.elem.style.borderBottom = '2px solid #777';
 
     return this;
   }
@@ -32,14 +34,14 @@
 
       } else { // reset at end of length
         self.addedDelay = 0;
-        if (self.settings.highlight == true) {
+        if (self.settings.highlight === true) {
           self.addedDelay = 1000;
-          setTimeout(_highlight(false, self), self.freeze);
+          setTimeout(_highlight.bind(self, false), self.freeze);
         }
 
         setTimeout(function(){
           self.elem.innerHTML = '';
-          setTimeout(_highlight(true, self), self.freeze);
+          setTimeout(_highlight.bind(self, true), self.freeze);
         }, self.freeze + self.addedDelay);
 
       }
@@ -57,18 +59,20 @@
       this.scribe(currentWord, i, this.speed);
     }
 
-  }
+  };
 
-  function _highlight(dehighlight, self) {
-    return function () {
-      if (dehighlight) {
-        self.elem.style.backgroundColor = 'transparent';
-        self.elem.style.color = '#777';
-        self.start();
-      } else {
-        self.elem.style.backgroundColor = '#777';
-        self.elem.style.color = '#fff';
-      }
+  function _highlight(dehighlight) {
+    if (dehighlight) {
+      this.elem.style.backgroundColor = 'transparent';
+      this.elem.style.color = '#777';
+      this.start();
+    } else {
+      this.elem.style.backgroundColor = '#777';
+      this.elem.style.color = '#fff';
     }
   }
+
+  // Expose Ticker to global scope
+  win.Ticker = Ticker;
+  
 })(window);
