@@ -34,13 +34,18 @@
 		#ticker {
 			padding:0 10px;
 		}
+
+		.highlight {
+			background:#777;
+			color:#fff;
+		}
 	</style>
 	<script>
 		window.onload = function () {
 			var ticker = new Ticker({
 				// freeze: 1500,
 				underline: true,
-				highlight: true,
+				highlight: 'highlight',
 				// elementID: 'ticker',
 				words: [
 					'AngularJS',

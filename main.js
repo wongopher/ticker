@@ -7,6 +7,7 @@
     this.freeze     = settings.freeze || 1500;
     this.speed      = settings.speed || Math.ceil(Math.random() * 50) + 50;
     this.words      = settings.words || ['You need to pass a word array into your Ticker instance'];
+    this.highlight  = settings.highlight || undefined;
     this.settings   = settings;
     this.elem       = document.getElementById(settings.elementID) || document.getElementById('ticker');
     this.prevWord   = '';
@@ -34,7 +35,7 @@
 
       } else { // reset at end of length
         self.addedDelay = 0;
-        if (self.settings.highlight === true) {
+        if (self.highlight !== undefined) {
           self.addedDelay = 1000;
           setTimeout(_highlight.bind(self, false), self.freeze);
         }
@@ -62,13 +63,30 @@
   };
 
   function _highlight(dehighlight) {
+    console.log(dehighlight);
     if (dehighlight) {
-      this.elem.style.backgroundColor = 'transparent';
-      this.elem.style.color = '#777';
+      var currentClasses = this.elem.className;
+
+      if (currentClasses == this.highlight) {
+        this.elem.className = '';
+        return;
+      }
+
+      var currentClassesArray = currentClasses.split(' ');
+      var preservedList = [];
+
+      for (var i = 0; i < currentClassesArray.length; i++) { // note to self: change this to forEach... will need to figure out how to bind Ticker as "this" within forEach
+        if (currentClassesArray[i] !== this.highlight) {
+          preservedList.push(currentClassesArray[i]);
+        }
+      };
+
+      this.elem.className = preservedList.join(' ');
+
       this.start();
     } else {
-      this.elem.style.backgroundColor = '#777';
-      this.elem.style.color = '#fff';
+      console.log(this.highlight);
+      this.elem.className += ' ' + this.highlight;
     }
   }
 
