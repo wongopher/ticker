@@ -74,18 +74,17 @@
 
       var currentClassesArray = currentClasses.split(' ');
       var preservedList = [];
-
-      for (var i = 0; i < currentClassesArray.length; i++) { // note to self: change this to forEach... will need to figure out how to bind Ticker as "this" within forEach
-        if (currentClassesArray[i] !== this.highlight) {
-          preservedList.push(currentClassesArray[i]);
+      
+      currentClassesArray.forEach(function(i) {
+        if (i !== this.highlight) {
+          preservedList.push(i);
         }
-      };
+      }, this);
 
       this.elem.className = preservedList.join(' ');
 
       this.start();
     } else {
-      console.log(this.highlight);
       this.elem.className += ' ' + this.highlight;
     }
   }
