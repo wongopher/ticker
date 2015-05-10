@@ -12,9 +12,6 @@
     this.elem       = document.getElementById(settings.elementID) || document.getElementById('ticker');
     this.prevWord   = '';
 
-    // set up styling -- need to move this out of the library code!!!
-    if (settings.underline === true) this.elem.style.borderBottom = '2px solid #777';
-
     return this;
   }
 
