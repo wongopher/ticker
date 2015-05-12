@@ -1,4 +1,11 @@
-// constructor function
+/*!
+ * ticker.js v0.1
+ * Author: Chris Wong, 2015
+ *
+ * Full details and documentation:
+ * http://wongopher.github.io/ticker/
+ */
+
 (function(win){
   'use strict';
 
